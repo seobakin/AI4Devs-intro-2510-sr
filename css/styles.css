@@ -1,0 +1,437 @@
+/* ===============================================
+   Estilos generales y reset básico
+   =============================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Variables CSS para mantener consistencia en los colores */
+    --primary-color: #6366f1;
+    --primary-hover: #5558e3;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-hover: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    /* Variables para transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ===============================================
+   Estilos del body y contenedor principal
+   =============================================== */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    animation: fadeIn 0.5s ease;
+}
+
+/* ===============================================
+   Estilos del header
+   =============================================== */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* ===============================================
+   Estilos de la sección de entrada
+   =============================================== */
+.input-section {
+    margin-bottom: 30px;
+}
+
+.input-label, .output-label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#textInput {
+    width: 100%;
+    padding: 15px 120px 15px 15px;
+    font-size: 1.1rem;
+    background: var(--background);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    transition: all var(--transition-normal);
+    outline: none;
+}
+
+#textInput:focus {
+    border-color: var(--primary-color);
+    box-shadow: 
+        0 0 0 3px rgba(99, 102, 241, 0.1),
+        0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+#textInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.char-counter {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    background: var(--background);
+    padding: 0 5px;
+}
+
+/* ===============================================
+   Estilos del botón de invertir
+   =============================================== */
+.reverse-button {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reverse-button:hover:not(.hidden) {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 20px -5px rgba(99, 102, 241, 0.4),
+        0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.reverse-button:active {
+    transform: translateY(0);
+}
+
+.reverse-button.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.button-icon {
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+/* ===============================================
+   Estilos de la sección de salida
+   =============================================== */
+.output-section {
+    margin-bottom: 30px;
+}
+
+.output-box {
+    position: relative;
+    padding: 20px;
+    background: var(--background);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all var(--transition-normal);
+}
+
+.output-box.active {
+    border-color: var(--success-color);
+    box-shadow: 
+        0 0 0 3px rgba(16, 185, 129, 0.1),
+        0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.reversed-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    word-break: break-all;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.reversed-text.placeholder {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* ===============================================
+   Botón de copiar
+   =============================================== */
+.copy-button {
+    padding: 8px 12px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.copy-button:hover:not(.hidden) {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.copy-button:active {
+    transform: scale(0.95);
+}
+
+.copy-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ===============================================
+   Mensaje de estado
+   =============================================== */
+.status-message {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success-color);
+    border-radius: 8px;
+    color: var(--success-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition-normal);
+}
+
+.status-message.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    margin-top: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.status-icon {
+    font-size: 1.2rem;
+    animation: bounce 0.5s ease;
+}
+
+/* ===============================================
+   Sección de ejemplos
+   =============================================== */
+.examples-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+.examples-section h3 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.example-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.example-chip {
+    padding: 8px 16px;
+    background: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.example-chip:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.example-chip:active {
+    transform: translateY(0);
+}
+
+/* ===============================================
+   Footer
+   =============================================== */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+footer p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.tech-info {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* ===============================================
+   Animaciones
+   =============================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ===============================================
+   Diseño responsivo para móviles
+   =============================================== */
+@media (max-width: 640px) {
+    .container {
+        padding: 25px;
+        border-radius: 15px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    #textInput {
+        padding: 12px 100px 12px 12px;
+        font-size: 1rem;
+    }
+    
+    .reversed-text {
+        font-size: 1.1rem;
+    }
+    
+    .example-chips {
+        justify-content: center;
+    }
+}
+
+/* ===============================================
+   Soporte para modo claro (opcional)
+   =============================================== */
+@media (prefers-color-scheme: light) {
+    /* Los usuarios pueden preferir modo claro */
+    /* Puedes descomentar y ajustar estos estilos si lo deseas */
+    /*
+    :root {
+        --background: #f8fafc;
+        --surface: #ffffff;
+        --surface-hover: #f1f5f9;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    */
+}
